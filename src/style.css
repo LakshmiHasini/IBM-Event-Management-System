@@ -1,0 +1,296 @@
+.logo{
+    font-size: 20px;
+    font-weight: 200;
+    letter-spacing: -1px;
+    color: #e63946;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0px;
+}
+.search-bar input{
+    all: unset;
+    border: none;
+}
+.search-bar{
+    padding: 10px;
+    height: 50px;
+    width: 600px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: rgb(202, 202, 202) solid 1px;
+}
+.navbar{
+    display: flex;
+    align-items: center;
+    width: 40%;
+    font-size: 14px;
+}
+.navbar a{
+    all: unset;
+    padding: 10px;
+    border-radius: 25px;
+    transition: .3s;
+}
+.navbar a:hover{
+    background-color: rgb(232, 232, 232);
+    cursor: pointer;
+}
+
+/* Circular person icon in navbar (shown when logged in) */
+.navbar a .bi.bi-person{
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #333;
+    font-size: 18px;
+}
+.banner{
+    display: flex;
+    justify-content: center;
+}
+.banner img{
+    height: 70vh;
+    object-fit: cover;
+    border-radius: 25px;
+}
+.event-categories{
+    display: flex;
+    justify-content: space-around;
+    margin: 50px 150px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid grey;
+    text-align: center;
+}
+.icons{
+    margin-top: 2px;
+    margin-bottom: -2px;
+    transition: .2s;
+}
+.icons:hover{
+    margin-top: -2px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.icons img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    padding: 10px 10px;
+    border: 1px solid grey;
+    border-radius: 200px;
+    margin-bottom: 5px;
+
+}
+
+/* Card styling */
+.events{
+    margin: 50px 100px;
+}
+.event-cards{
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr 3fr;
+    row-gap: 20px;
+}
+.venue{
+    color: gray;
+}
+.pricing{
+    color: gray;
+    font-weight: bold;
+}
+.btn{
+    width: 100%;
+}
+
+/* login page styling */
+.card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../public/images/image copy.png');
+    background-size: cover;
+    background-position: center;
+}
+.login-card{
+    width: 30vw;
+    height: 75vh;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.login-card input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.btn{
+    width: 100%;
+    background-color: #e63946;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.btn:hover{
+    color: white;
+    background-color: #d62828;
+}
+.signIn-other{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align:center;
+}
+/* Scoped Styles to prevent template clashing */
+        footer {
+            background-color: #1d3557;
+            color: #ffffff;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            padding: 60px 20px 30px 20px;
+            line-height: 1.5;
+        }
+
+        .footer-container {
+            margin-top:100px ;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-left: 200px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        .footer-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .footer-list li {
+            margin-bottom: 12px !important;
+        }
+
+        .footer-list a {
+            color: #dbdae3;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-list a:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            margin-top: 50px;
+            padding-top: 20px;
+        }
+
+        .bottom-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #dbdae3;
+            gap: 20px;
+        }
+
+        .bottom-links {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 10px 0 !important;
+        }
+
+        .bottom-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .bottom-links li::after {
+            content: "•";
+            margin: 0 8px;
+            color: #6f618e;
+        }
+
+        .bottom-links li:last-child::after {
+            content: "";
+        }
+
+        .bottom-links a {
+            color: #dbdae3;
+            text-decoration: none;
+        }
+
+        .location {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cookie-settings {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .cookie-settings a {
+            color: #dbdae3;
+            text-decoration: none;
+        }
+
+        .country-dropdown {
+            background-color: #1d3557;
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            appearance: none;
+            padding-right: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+        }
+
+        .country-dropdown:hover {
+            background-color: #2a4a7c;
+        }
+
+        .country-dropdown option {
+            background-color: #1d3557;
+            color: #ffffff;
+            padding: 8px;
+        }
