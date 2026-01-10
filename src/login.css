@@ -1,0 +1,288 @@
+.logo{
+    font-size: 20px;
+    font-weight: 200;
+    letter-spacing: -1px;
+    color: #e63946;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0px;
+}
+.search-bar input{
+    all: unset;
+    border: none;
+}
+.search-bar{
+    padding: 10px;
+    height: 50px;
+    width: 600px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: rgb(202, 202, 202) solid 1px;
+}
+.navbar{
+    display: flex;
+    align-items: center;
+    width: 40%;
+    font-size: 14px;
+}
+.navbar a{
+    all: unset;
+    padding: 10px;
+    border-radius: 25px;
+    transition: .3s;
+}
+.navbar a:hover{
+    background-color: rgb(232, 232, 232);
+    cursor: pointer;
+}
+.card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../public/images/image copy.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.card{
+    width: 30vw;
+    height: 70vh;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.137);
+}
+.card input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.btn{
+    width: 100%;
+    background-color: #e63946;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.btn:hover{
+    color: white;
+    background-color: #d62828;
+}
+.signIn-other{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align:center;
+}
+
+/* Event-pages styling */
+.event-banner{
+    width: 100%;
+    height: 300px;
+    color: white;
+    background: linear-gradient(to right, #457b9d, #1D3557);
+    margin-bottom: 20px;
+}
+.event-head{
+    padding-top: 35px;
+    font-size: 100px;
+    font-weight: 800;
+    padding-left: 30px;
+}
+.event-location{
+    font-size: 25px;
+    padding-left: 30px;
+}
+.event-caption{
+    font-size: 18px;
+    padding-left: 30px;
+    margin-top: 10px;
+}
+.music-cards{
+    display: flex;
+    gap: 50px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.Going-fast{
+    background-color: rgba(248, 206, 172, 0.737);
+    width: 90px;
+    height: 30px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 10px;
+}
+.Sale-ends-soon{
+    background-color: rgba(234, 163, 247, 0.737);
+    width: 130px;
+    height: 30px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 10px;
+}
+.music-card img{
+    border-radius: 10px;
+}
+.Register{
+    background-color: #2948f6;
+    color: white;
+    border: none;
+    padding: 10px 40px; 
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 100%;
+}
+.music-events h2{
+    margin-left: 30px;
+}
+  /* Scoped Styles to prevent template clashing */
+        footer {
+            background-color: #1d3557;
+            color: #ffffff;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            padding: 60px 20px 30px 20px;
+            line-height: 1.5;
+        }
+
+        .footer-container {
+            margin-top:100px ;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-left: 200px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        .footer-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .footer-list li {
+            margin-bottom: 12px !important;
+        }
+
+        .footer-list a {
+            color: #dbdae3;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-list a:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            margin-top: 50px;
+            padding-top: 20px;
+        }
+
+        .bottom-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #dbdae3;
+            gap: 20px;
+        }
+
+        .bottom-links {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 10px 0 !important;
+        }
+
+        .bottom-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .bottom-links li::after {
+            content: "•";
+            margin: 0 8px;
+            color: #6f618e;
+        }
+
+        .bottom-links li:last-child::after {
+            content: "";
+        }
+
+        .bottom-links a {
+            color: #dbdae3;
+            text-decoration: none;
+        }
+
+        .location {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cookie-settings {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .cookie-settings a {
+            color: #dbdae3;
+            text-decoration: none;
+        }
+
+        .country-dropdown {
+            background-color: #1d3557;
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            appearance: none;
+            padding-right: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+        }
+
+        .country-dropdown:hover {
+            background-color: #2a4a7c;
+        }
+
+        .country-dropdown option {
+            background-color: #1d3557;
+            color: #ffffff;
+            padding: 8px;
+        }
