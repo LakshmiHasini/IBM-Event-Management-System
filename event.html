@@ -52,6 +52,45 @@
                 </div>
             </div>
         </section>
+
+        <!-- Booking Modal -->
+        <div id="booking-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Confirm Booking</h3>
+                    <button class="close-modal" aria-label="Close modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="booking-summary">
+                        <p><strong>Event:</strong> <span id="modal-event-name">Event Name</span></p>
+                        <p><strong>Date:</strong> <span id="modal-event-date">Date</span></p>
+                        <p><strong>Price per ticket:</strong> <span id="modal-event-price">Price</span></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticket-quantity">Number of Tickets</label>
+                        <select id="ticket-quantity">
+                            <option value="1">1 Ticket</option>
+                            <option value="2">2 Tickets</option>
+                            <option value="3">3 Tickets</option>
+                            <option value="4">4 Tickets</option>
+                            <option value="5">5 Tickets</option>
+                        </select>
+                    </div>
+
+                    <div class="booking-total">
+                        Total: <span id="modal-total-price">₹0</span>
+                    </div>
+
+                    <button id="confirm-booking-btn" class="btn btn-primary" style="margin-top: 20px;">
+                        Confirm Booking
+                    </button>
+                    <p style="text-align: center; margin-top: 10px; font-size: 12px; color: #666;">
+                        You won't be charged yet. This is just a reservation.
+                    </p>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer-medium">
         <div class="footer-container">
@@ -191,27 +230,13 @@
                     const buttonText = this.textContent.trim();
 
                     if (buttonText === 'Register for Event') {
-                        // Register for event
-                        const registeredEvents = JSON.parse(localStorage.getItem('eventTribeRegisteredEvents') || '[]');
-                        if (!registeredEvents.some(e => e.id === event.id)) {
-                            registeredEvents.push({
-                                id: event.id,
-                                name: event.name,
-                                date: event.date,
-                                time: event.time,
-                                location: event.location,
-                                city: event.city,
-                                category: event.category,
-                                price: event.price,
-                                image: event.image
-                            });
-                            localStorage.setItem('eventTribeRegisteredEvents', JSON.stringify(registeredEvents));
+                        // Open Booking Modal
+                        if (window.openBookingModal) {
+                            window.openBookingModal(event);
+                        } else {
+                            // Fallback if script not loaded yet (shouldn't happen)
+                            console.error('Booking modal function not found');
                         }
-
-                        registerBtn.textContent = 'Registered';
-                        registerBtn.classList.remove('btn-primary');
-                        registerBtn.classList.add('btn-secondary');
-                        registerBtn.style.cursor = 'pointer';
                     } else if (buttonText === 'Registered') {
                         // Deregister from event
                         if (confirm('Are you sure you want to cancel your registration for this event?')) {

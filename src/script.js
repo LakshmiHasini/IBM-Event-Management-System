@@ -338,19 +338,32 @@ function attachRegistrationHandlers() {
                 e.preventDefault();
 
                 // Scrape data from DOM for storage
-                if (card) {
-                    const event = {
+
+                // Look up event from the global events array to ensure we have all data (including time)
+                const event = events.find(e => e.id === eventId);
+
+                if (event) {
+                    registerForEvent(event);
+                    this.textContent = 'Registered';
+                    this.classList.remove('btn-primary');
+                    this.classList.add('btn-secondary');
+                    this.href = '#';
+                    this.style.cursor = 'pointer';
+                } else if (card) {
+                    // Fallback to DOM scraping if event not found in global array (legacy support)
+                    console.warn('Event ID ' + eventId + ' not found in global array, falling back to DOM scraping');
+                    const scrapedEvent = {
                         id: eventId,
                         name: card.dataset.name || card.querySelector('.card-title')?.textContent,
                         date: card.dataset.date,
+                        time: '18:00', // Default time if missing
                         location: card.dataset.location || card.querySelector('.venue')?.textContent,
                         category: card.dataset.category,
                         price: card.dataset.price === 'free' ? 0 : parseFloat(card.dataset.price),
                         image: card.querySelector('.card-img-top')?.src,
-                        city: 'Bangalore' // hardcoded or add as data attribute
+                        city: 'Bangalore'
                     };
-
-                    registerForEvent(event);
+                    registerForEvent(scrapedEvent);
                     this.textContent = 'Registered';
                     this.classList.remove('btn-primary');
                     this.classList.add('btn-secondary');
@@ -676,4 +689,177 @@ window.eventTribe = {
     handleNewsletter,
     events
 };
+
+// --- New Features Implementation (Calendar, Booking, Reminders) ---
+
+// Booking Modal Logic
+function initBookingModal() {
+    // Only run if booking modal exists on page
+    const modal = document.getElementById('booking-modal');
+    if (!modal) return;
+
+    const closeBtn = modal.querySelector('.close-modal');
+    const confirmBtn = document.getElementById('confirm-booking-btn');
+    const quantitySelect = document.getElementById('ticket-quantity');
+    const modalName = document.getElementById('modal-event-name');
+    const modalDate = document.getElementById('modal-event-date');
+    const modalPrice = document.getElementById('modal-event-price');
+    const modalTotal = document.getElementById('modal-total-price');
+
+    let currentEvent = null;
+    let triggeringButton = null;
+
+    // Close modal handlers
+    const closeModal = () => {
+        modal.style.display = 'none';
+        quantitySelect.value = '1'; // Reset
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Update total price when quantity changes
+    quantitySelect.addEventListener('change', () => {
+        if (currentEvent) {
+            const qty = parseInt(quantitySelect.value);
+            const total = currentEvent.price * qty;
+            modalTotal.textContent = total === 0 ? 'Free' : '₹' + total;
+        }
+    });
+
+    // Override Register Button Behavior
+    // We attach this to document because button might be dynamic, but since we are in event.html
+    // and loadEventDetails is setting up the button, we need to intercept it there.
+    // However, event.html has inline script. Let's provide a global function.
+
+    // Global function to open modal
+    window.openBookingModal = function (event, btnElement = null) {
+        currentEvent = event;
+        triggeringButton = btnElement; // Store reference
+        modal.style.display = 'flex';
+
+        modalName.textContent = event.name;
+        // Format date logic duplication (should refactor, but kept inline for safety)
+        const dateObj = new Date(event.date);
+        modalDate.textContent = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+        modalPrice.textContent = event.price === 0 ? 'Free' : '₹' + event.price;
+
+        // Initial Total
+        modalTotal.textContent = event.price === 0 ? 'Free' : '₹' + event.price;
+    };
+
+    // Confirm Booking Handler
+    confirmBtn.addEventListener('click', () => {
+        if (!currentEvent) return;
+
+        const qty = parseInt(quantitySelect.value);
+
+        // Register event with quantity
+        const registeredEvents = getRegisteredEvents();
+        if (!registeredEvents.some(e => e.id === currentEvent.id)) {
+            registeredEvents.push({
+                ...currentEvent,
+                quantity: qty,
+                totalPrice: currentEvent.price * qty,
+                bookedAt: new Date().toISOString()
+            });
+            localStorage.setItem('eventTribeRegisteredEvents', JSON.stringify(registeredEvents));
+        }
+
+        closeModal();
+
+        // Update UI button
+        const registerBtn = document.getElementById('register-btn');
+        if (triggeringButton) {
+            triggeringButton.textContent = 'Registered';
+            triggeringButton.classList.remove('btn-primary');
+            triggeringButton.classList.add('btn-secondary');
+            triggeringButton.style.cursor = 'pointer';
+            triggeringButton.href = '#';
+        } else if (registerBtn) {
+            registerBtn.textContent = 'Registered';
+            registerBtn.classList.remove('btn-primary');
+            registerBtn.classList.add('btn-secondary');
+            registerBtn.style.cursor = 'pointer';
+        }
+
+        alert(`Successfully booked ${qty} ticket(s) for ${currentEvent.name}!`);
+    });
+}
+
+// Reminder System
+function checkReminders() {
+    const registeredEvents = getRegisteredEvents();
+    if (registeredEvents.length === 0) return;
+
+    const today = new Date();
+    // Normalize today to start of day
+    today.setHours(0, 0, 0, 0);
+
+    const upcomingEvents = registeredEvents.filter(event => {
+        const eventDate = new Date(event.date);
+        eventDate.setHours(0, 0, 0, 0);
+
+        // Calculate difference in days
+        const diffTime = eventDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        // Reminder for events within next 3 days (including today)
+        return diffDays >= 0 && diffDays <= 3;
+    });
+
+    if (upcomingEvents.length > 0) {
+        // Show reminder for the first upcoming event (to avoid spam)
+        const event = upcomingEvents[0];
+        const eventDate = new Date(event.date);
+        const dateStr = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+        showToast(`Upcoming Event: ${event.name}`, `Don't forget! This event is happening on ${dateStr}.`);
+    }
+}
+
+// Toast Notification
+function showToast(title, message) {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+        <div class="toast-content">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close">&times;</button>
+    `;
+
+    container.appendChild(toast);
+
+    // Close on click
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+        toast.remove();
+    });
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        toast.style.animation = 'toastSlideIn 0.5s ease reverse'; // Needs simpler fade out really
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => toast.remove(), 500);
+    }, 5000);
+}
+
+// Initialize new features on load
+document.addEventListener('DOMContentLoaded', function () {
+    initBookingModal();
+    // Delay reminder slightly to not interfere with initial page load
+    setTimeout(checkReminders, 1500);
+});
 

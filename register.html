@@ -22,12 +22,16 @@
                     <small class="field-hint">Name must be between 2-50 characters</small>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="email" placeholder="Email" required minlength="5" maxlength="100">
+                    <input type="email" id="email" placeholder="Email" required minlength="5" maxlength="100"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        title="Please enter a valid email address (e.g. user@example.com)">
                     <span class="error-message" id="email-error"></span>
                     <small class="field-hint">Email must be between 5-100 characters</small>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" placeholder="Password" required minlength="8" maxlength="50">
+                    <input type="password" id="password" placeholder="Password" required minlength="8" maxlength="50"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must contain at least one number, one uppercase, one lowercase letter, and be at least 8 characters long">
                     <span class="error-message" id="password-error"></span>
                     <small class="field-hint">Password must be 8-50 characters with at least one letter and one
                         number</small>
@@ -54,61 +58,7 @@
             </div>
         </div>
     </main>
-    <footer class="footer-medium">
-        <div class="footer-container">
-            <div class="footer-top">
-                <div class="footer-col brand-col">
-                    <h2><span>event</span><span class="bi bi-lightning-charge-fill"
-                            style="font-size: 18px"></span><span>tribe</span></h2>
-                    <p>Discover and create amazing events in your city.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><span class="bi bi-facebook"></span></a>
-                        <a href="#" aria-label="Twitter"><span class="bi bi-twitter-x"></span></a>
-                        <a href="#" aria-label="Instagram"><span class="bi bi-instagram"></span></a>
-                        <a href="#" aria-label="LinkedIn"><span class="bi bi-linkedin"></span></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h3>Plan Events</h3>
-                    <ul class="footer-links">
-                        <li><a href="./create-event.html">Create Events</a></li>
-                        <li><a href="#">Sell Tickets</a></li>
-                        <li><a href="#">Online RSVP</a></li>
-                        <li><a href="#">Event Management</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Find Events</h3>
-                    <ul class="footer-links">
-                        <li><a href="./index.html">Browse Events</a></li>
-                        <li><a href="#">Virtual Events</a></li>
-                        <li><a href="#">Online Classes</a></li>
-                        <li><a href="#">Local Events</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col newsletter-col">
-                    <h3>Stay Connected</h3>
-                    <p>Subscribe for updates.</p>
-                    <form class="simple-newsletter" onsubmit="handleNewsletter(event)">
-                        <input type="email" placeholder="Email address" required>
-                        <button type="submit"><span class="bi bi-arrow-right"></span></button>
-                    </form>
-                    <div class="contact-links">
-                        <a href="./help.html">Help Center</a>
-                        <a href="#">Contact Us</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="copyright">©️ 2026 EventTribe</div>
-                <div class="legal-links">
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                    <a href="#">Cookies</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+
     <script>
         // Validation constraints
         const NAME_MIN_LENGTH = 2;
